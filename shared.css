@@ -1,0 +1,135 @@
+/* ============================================================
+   AarogyaPath – Shared Styles
+   Used by: index.html, solution.html
+   ============================================================ */
+
+/* ─── CSS VARIABLES ─── */
+:root {
+  --blue-dark:   #0a2540;
+  --blue-mid:    #1a56db;
+  --blue-light:  #e8f0fe;
+  --blue-accent: #3b82f6;
+  --teal:        #0ea5e9;
+  --white:       #ffffff;
+  --gray-50:     #f8fafc;
+  --gray-100:    #f1f5f9;
+  --gray-200:    #e2e8f0;
+  --gray-400:    #94a3b8;
+  --gray-600:    #475569;
+  --gray-800:    #1e293b;
+  --green:       #10b981;
+  --green-light: #d1fae5;
+  --yellow:      #f59e0b;
+  --yellow-light:#fef3c7;
+  --red:         #ef4444;
+  --red-light:   #fee2e2;
+  --orange:      #f97316;
+  --orange-light:#ffedd5;
+  --shadow-sm:   0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md:   0 4px 20px rgba(0,0,0,0.10);
+  --shadow-lg:   0 12px 40px rgba(0,0,0,0.14);
+  --radius:      14px;
+  --radius-sm:   8px;
+  --transition:  all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─── RESET ─── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--gray-800);
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+/* ─── SHARED BUTTON STYLES ─── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  transition: var(--transition);
+  font-family: inherit;
+  letter-spacing: 0.01em;
+}
+.btn-primary {
+  background: white;
+  color: var(--blue-mid);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+  background: #f0f7ff;
+}
+.btn-outline {
+  background: transparent;
+  color: white;
+  border: 2px solid rgba(255,255,255,0.4);
+}
+.btn-outline:hover {
+  border-color: white;
+  background: rgba(255,255,255,0.1);
+  transform: translateY(-2px);
+}
+
+/* ─── SHARED SECTION LABELS ─── */
+.section-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--blue-mid);
+  margin-bottom: 10px;
+}
+.section-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  color: var(--blue-dark);
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+.section-desc {
+  color: var(--gray-600);
+  font-size: 1rem;
+  margin-bottom: 40px;
+  max-width: 560px;
+}
+
+/* ─── SCROLL REVEAL ANIMATION ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ─── SHARED KEYFRAMES ─── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.08); }
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}

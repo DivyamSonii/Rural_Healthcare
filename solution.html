@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AarogyaPath - AI Symptom Checker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="solution.css">
+</head>
+
+<body>
+  <div class="topbar">
+    <a href="index.html" class="back-btn">← <span>Home</span></a>
+    <div class="top-search-wrap">
+      <span class="top-search-icon">🔍</span>
+      <input type="text" class="top-search-input" id="topSearch" placeholder="Type symptoms or ask a health question..."
+        onkeydown="handleTopSearch(event)">
+      <button class="top-voice-btn" id="topVoiceBtn" onclick="toggleTopVoice()" title="Voice input">🎙️</button>
+      <button class="top-search-btn" onclick="doTopSearch()"><span>Search</span> →</button>
+    </div>
+    <select class="lang-select-top" onchange="changeLanguage(this.value)">
+      <option value="en">🌐 EN</option>
+      <option value="hi">हिं</option>
+      <option value="pa">ਪੰ</option>
+    </select>
+  </div>
+  <div class="main-layout">
+    <aside class="sidebar">
+      <div class="sidebar-title">Filter by Department</div>
+      <div class="dept-list" id="deptList">
+        <div class="dept-item active" onclick="filterDept('all', this)">
+          <span class="dept-item-icon">🏥</span>
+          <span class="dept-label">All Departments</span>
+        </div>
+        <div class="dept-item" onclick="filterDept('cardiac', this)">
+          <span class="dept-item-icon">❤️</span>
+          <span class="dept-label">Cardiac</span>
+        </div>
+        <div class="dept-item" onclick="filterDept('neuro', this)">
+          <span class="dept-item-icon">🧠</span>
+          <span class="dept-label">Neurology</span>
+        </div>
+        <div class="dept-item" onclick="filterDept('gastro', this)">
+          <span class="dept-item-icon">🫁</span>
+          <span class="dept-label">Gastro</span>
+        </div>
+        <div class="dept-item" onclick="filterDept('ortho', this)">
+          <span class="dept-item-icon">🦴</span>
+          <span class="dept-label">Orthopaedics</span>
+        </div>
+        <div class="dept-item" onclick="filterDept('general', this)">
+          <span class="dept-item-icon">👨‍⚕️</span>
+          <span class="dept-label">General Medicine</span>
+        </div>
+        <div class="dept-item" onclick="filterDept('child', this)">
+          <span class="dept-item-icon">👶</span>
+          <span class="dept-label">Paediatrics</span>
+        </div>
+        <div class="dept-item" onclick="filterDept('women', this)">
+          <span class="dept-item-icon">👩‍⚕️</span>
+          <span class="dept-label">Women's Health</span>
+        </div>
+      </div>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-title">Recent Searches</div>
+      <div id="recentSearches"></div>
+      <div class="sidebar-divider"></div>
+      <div class="emergency-card">
+        <h4>🚨 Emergency?</h4>
+        <p>Severe chest pain, difficulty breathing, or unconsciousness — call immediately:</p>
+        <span class="emergency-num">📞 108</span>
+      </div>
+      <div class="sidebar-divider"></div>
+      <div class="hospital-near">
+        <span class="hospital-near0">🏥Hospital Near you</span>
+        <button class="hospital-near1" id="locationBtn1" onclick="detectLocation()">📍 Get Location</button>
+      </div>
+    </aside>
+    <main class="content-area">
+      <div class="chat-section">
+        <h1 class="section-heading">AI Health Assistant</h1>
+        <p class="section-sub">Type or speak your symptoms — get instant guidance.</p>
+        <div class="chat-box">
+          <div class="chat-messages" id="chatMessages">
+            <div class="chat-msg bot">
+              <div class="chat-avatar bot-avatar">AI</div>
+              <div>
+                <div class="chat-bubble bot-bubble">👋 Namaste! I'm your AarogyaPath health assistant. Please describe
+                  your symptoms or health concerns — in any language you're comfortable
+                  with.<br><br><strong>Examples:</strong><br>• "I have fever and body ache for 3 days"<br>• "Child has
+                  loose motions and not drinking water"<br>• "Chest pain when I walk"</div>
+                <div class="chat-time">AarogyaPath AI · Always available</div>
+              </div>
+            </div>
+          </div>
+          <div class="chat-input-row">
+            <input type="text" class="chat-input" id="chatInput" placeholder="Describe your symptoms here..."
+              onkeydown="handleChatInput(event)">
+            <button class="chat-voice-btn" id="chatVoiceBtn" onclick="toggleChatVoice()"
+              title="Voice input">🎙️</button>
+            <button class="chat-send-btn" onclick="sendChat()" title="Send">➤</button>
+          </div>
+        </div>
+      </div>
+      <div class="results-section" id="resultsSection">
+        <div class="results-header">
+          <div>
+            <h2 class="section-heading">Results</h2>
+            <p class="section-sub" id="resultSubtitle">Based on your described symptoms</p>
+          </div>
+          <div class="results-badge" id="resultsBadge">🟡 Moderate</div>
+        </div>
+        <div class="result-cards" id="resultCards"></div>
+        <div class="doctor-connect">
+          <div>
+            <h4>👨‍⚕️ Speak to a Real Doctor</h4>
+            <p>Connect with a certified doctor via call or video — free of charge for rural patients.</p>
+          </div>
+          <div class="connect-btns">
+            <a href="https://esanjeevani.mohfw.gov.in/#/" class="connect-btn primary" target="_blank">📞 Call Doctor</a>
+          </div>
+        </div>
+        <div class="disclaimer"><span class="disclaimer-icon">⚠️</span><span><strong>Medical Disclaimer:</strong> This
+            AI tool provides general health information only. It is not a substitute for professional medical advice,
+            diagnosis, or treatment. Always consult a qualified doctor for medical decisions.</span></div>
+      </div>
+      <div class="welcome-state" id="welcomeState">
+        <div class="welcome-state-icon">🩺</div>
+        <h3>How can we help you today?</h3>
+        <p>Start by typing your symptoms in the chat above, or tap a common health concern below.</p>
+        <div class="suggested-chips">
+          <span class="s-chip" onclick="quickAsk('I have high fever for 2 days')">🌡️ Fever</span>
+          <span class="s-chip" onclick="quickAsk('I have a bad headache')">🤕 Headache</span>
+          <span class="s-chip" onclick="quickAsk('My child has diarrhoea')">👶 Child diarrhoea</span>
+          <span class="s-chip" onclick="quickAsk('I feel chest pain')">💔 Chest pain</span>
+          <span class="s-chip" onclick="quickAsk('I have a cough and cold')">😷 Cough &amp; cold</span>
+          <span class="s-chip" onclick="quickAsk('My joints are painful')">🦴 Joint pain</span>
+          <span class="s-chip" onclick="quickAsk('I feel very tired and weak')">😴 Weakness</span>
+          <span class="s-chip" onclick="quickAsk('I have stomach pain after eating')">🤢 Stomach pain</span>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="index.js"></script>
+  <script src="shared.js"></script>
+  <script src="solution.js"></script>
+  <script src="translations.js"></script>
+</body>
+
+</html>

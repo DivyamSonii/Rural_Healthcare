@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AarogyaPath - Accessible Healthcare for Everyone</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+  <div class="notice-bar">🩺 Free health camps this week in 12 villages. <a href="#">Find nearest camp →</a></div>
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">A</div>
+      <div>
+        <!-- <div class="nav-logo-text">AarogyaPath</div> -->
+        <div class="nav-logo-text" data-lang-key="logo_text">AarogyaPath</div>
+        <div class="nav-logo-sub">Rural Health Initiative</div>
+      </div>
+    </a>
+    <div class="nav-right">
+      <div class="patient-badge" id="patientBadge">
+        <div class="patient-avatar" id="patientAvatar">G</div>
+        <div class="patient-info">
+          <div class="patient-name" id="patientName">Guest User</div>
+          <div class="patient-meta" id="patientMeta">Not logged in</div>
+        </div>
+      </div>
+      <select class="lang-select" id="langSelect" onchange="changeLanguage(this.value)">
+        <option value="en">🌐 English</option>
+        <option value="hi">हिंदी</option>
+        <option value="pa">ਪੰਜਾਬੀ</option>
+      </select>
+      <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-shapes">
+      <svg class="shape-cross" width="80" height="80" viewBox="0 0 80 80" fill="white">
+        <rect x="32" y="10" width="16" height="60" rx="4" />
+        <rect x="10" y="32" width="60" height="16" rx="4" />
+      </svg>
+      <svg class="shape-cross" width="50" height="50" viewBox="0 0 80 80" fill="white">
+        <rect x="32" y="10" width="16" height="60" rx="4" />
+        <rect x="10" y="32" width="60" height="16" rx="4" />
+      </svg>
+      <svg class="shape-cross" width="35" height="35" viewBox="0 0 80 80" fill="white">
+        <rect x="32" y="10" width="16" height="60" rx="4" />
+        <rect x="10" y="32" width="60" height="16" rx="4" />
+      </svg>
+      <div class="shape-circle"></div>
+      <div class="shape-circle"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-text">
+        <div class="hero-eyebrow"><span class="hero-eyebrow-dot"></span>AI-Powered Healthcare</div>
+        <h1 class="hero-title" data-lang-key="hero_title">Accessible Healthcare<br>for <em>Everyone</em></h1>
+        <p class="hero-desc" data-lang-key="hero_desc">Get better healthcare in your village with smart AI diagnosis,
+          support in your own language, and instant connection to doctors.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" onclick="openModal()" data-lang-key="login_btn">🚀 Login / Get
+            Started</button>
+          <a href="solution.html" class="btn btn-outline">🔍 Check Symptoms</a>
+        </div>
+        <div class="hero-stats">
+          <!-- <div class="stat">
+            <div class="stat-num">50K+</div>
+            <div class="stat-label">Patients Served</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">120+</div>
+            <div class="stat-label">Villages Covered</div>
+          </div> -->
+          <div class="stat">
+            <div class="stat-num">24/7</div>
+            <div class="stat-label">AI Support</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card">
+          <div class="hero-card-title">Quick Symptom Check</div>
+          <div class="quick-symptoms">
+            <span class="symptom-chip" onclick="goToSymptom('Fever')">🌡️ Fever</span>
+            <span class="symptom-chip" onclick="goToSymptom('Headache')">🤕 Headache</span>
+            <span class="symptom-chip" onclick="goToSymptom('Chest pain')">💔 Chest Pain</span>
+            <span class="symptom-chip" onclick="goToSymptom('Cough')">😷 Cough</span>
+            <span class="symptom-chip" onclick="goToSymptom('Fatigue')">😴 Fatigue</span>
+            <span class="symptom-chip" onclick="goToSymptom('Stomach pain')">🤢 Stomach Pain</span>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="hero-card-title">Today's Health Metrics</div>
+          <div class="health-metrics">
+            <div class="metric">
+              <div class="metric-icon">❤️</div>
+              <div class="metric-val">72</div>
+              <div class="metric-name">Avg BPM</div>
+            </div>
+            <div class="metric">
+              <div class="metric-icon">🌡️</div>
+              <div class="metric-val">98.4°</div>
+              <div class="metric-name">Temp</div>
+            </div>
+            <div class="metric">
+              <div class="metric-icon">💧</div>
+              <div class="metric-val">96%</div>
+              <div class="metric-name">SpO2</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-indicator"><span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+  <section class="search-section" id="search">
+    <div class="section-label">AI Symptom Checker</div>
+    <h2 class="section-title">What's bothering you today?</h2>
+    <p class="section-desc" data-lang-key="solution3">Describe your symptoms in your own language. Our AI will guide you
+      to the right care —instantly.</p>
+    <div class="search-wrapper">
+      <div class="search-input-row">
+        <span class="search-icon">🔍</span>
+        <input type="text" class="search-input" id="mainSearch" placeholder='Describe your symptoms...'
+          onkeydown="handleSearch(event)">
+        <button class="voice-btn" id="voiceBtn" onclick="toggleVoice()" title="Voice Input">🎙️</button>
+        <button class="search-btn" onclick="doSearch()">Find Solutions →</button>
+      </div>
+      <div class="quick-tags">
+        <span style="font-size:0.78rem;color:var(--gray-400);align-self:center;">Common:</span>
+        <span class="quick-tag" onclick="fillSearch('Fever with chills')">Fever with chills</span>
+        <span class="quick-tag" onclick="fillSearch('Chest pain and breathlessness')">Chest pain</span>
+        <span class="quick-tag" onclick="fillSearch('Child not eating, weak')">Child weakness</span>
+        <span class="quick-tag" onclick="fillSearch('Severe headache')">Severe headache</span>
+        <span class="quick-tag" onclick="fillSearch('Skin rash and itching')">Skin rash</span>
+        <span class="quick-tag" onclick="fillSearch('Joint pain')">Joint pain</span>
+      </div>
+    </div>
+  </section>
+  <div class="stats-bar reveal">
+    <div class="stats-inner">
+      <div class="stat-item">
+        <div class="stat-num-big">98%</div>
+        <div class="stat-label-big">Diagnosis Accuracy</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num-big">15 sec</div>
+        <div class="stat-label-big">Avg Response Time</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num-big">12+</div>
+        <div class="stat-label-big">Languages Supported</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num-big">Free</div>
+        <div class="stat-label-big">Always &amp; For Everyone</div>
+      </div>
+    </div>
+  </div>
+  <section class="coe-section">
+    <div class="coe-inner">
+      <div class="section-label reveal">Specialised Care</div>
+      <h2 class="section-title reveal">Centres of Excellence</h2>
+      <p class="section-desc reveal">Get expert medical care in your village through remote healthcare and smart AI
+        diagnosis.</p>
+      <div class="coe-cards">
+        <div class="coe-card faded reveal">
+          <div class="coe-icon">❤️</div>
+          <div class="coe-title">Cardiac Care</div>
+          <div class="coe-desc">Advanced heart diagnostics, ECG analysis, and cardiac risk assessment.</div><a
+            href="https://en.wikipedia.org/wiki/Cardiac_arrest" class="coe-link">Explore →</a>
+        </div>
+        <div class="coe-card faded reveal">
+          <div class="coe-icon">🎗️</div>
+          <div class="coe-title">Cancer Care</div>
+          <div class="coe-desc">Early detection screening, oncology consultation, and palliative support.</div>
+          <a href="https://en.wikipedia.org/wiki/Cancer_treatment" class="coe-link">Explore →</a>
+        </div>
+        <div class="coe-card featured reveal">
+          <div class="coe-icon">🧠</div>
+          <div class="coe-title">Neuro Sciences</div>
+          <div class="coe-desc">Comprehensive neurology and neurosurgery services with AI-assisted brain health
+            assessments, stroke detection, and epilepsy management programs.</div>
+          <a href="https://en.wikipedia.org/wiki/Neuroscience" class="coe-link">Read More →</a>
+        </div>
+        <div class="coe-card faded reveal">
+          <div class="coe-icon">🫁</div>
+          <div class="coe-title">Gastroenterology</div>
+          <div class="coe-desc">Digestive health, nutrition counselling, and GI disorder management.</div><a
+            href="https://en.wikipedia.org/wiki/Gastroenterology" class="coe-link">Explore →</a>
+        </div>
+        <div class="coe-card faded reveal">
+          <div class="coe-icon">🦴</div>
+          <div class="coe-title">Orthopaedics</div>
+          <div class="coe-desc">Bone, joint, and muscle care with virtual physiotherapy guidance.</div><a
+            href="https://en.wikipedia.org/wiki/Gastroenterology" class="coe-link">Explore →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="news-section">
+    <div class="news-inner">
+      <div class="section-label reveal">Health Awareness</div>
+      <h2 class="section-title reveal">News &amp; Health Tips</h2>
+      <p class="section-desc reveal">Practical health knowledge for rural families — in simple language.</p>
+      <div class="news-grid">
+        <div class="news-card featured-news reveal">
+
+          <div class="news-img"><img src="Superfoods.png">
+            <div class="news-img-overlay"></div>
+          </div>
+          <div class="news-body"><span class="news-tag">Nutrition</span>
+            <div class="news-title">
+              <a href="https://www-mygov-in.translate.goog/campaigns/poshan-abhiyaan-2024/?_x_tr_sl=en&_x_tr_tl=hi&_x_tr_hl=hi&_x_tr_pto=tc"
+                target="_blank" class="health-btn">5 Affordable Superfoods That Prevent 80% of Common
+                Rural Diseases</a>
+            </div>
+            <div class="news-excerpt">Moringa, amla, turmeric, jaggery, and drumstick leaves — these locally grown foods
+              can dramatically improve community health at zero cost.</div>
+            <div class="news-meta"><span>Dr. Sunita Rao</span><span class="news-meta-dot"></span><span>5 min read</span>
+            </div>
+          </div>
+        </div>
+        <div class="news-card reveal">
+          <div class="news-img"><img src="Sanitation1.jpeg" width="100%" height="200px" alt=""></div>
+          <div class="news-body"><span class="news-tag">Sanitation</span>
+            <div class="news-title"><a href="https://www.wateraid.org/global/our-work/where-we-work/india"
+                target="_blank" class="health-btn">Clean Water:
+                The Single Biggest Health Intervention</a></div>
+            <div class="news-excerpt">How ORS and purification tablets save lives in rural communities.</div>
+            <div class="news-meta"><span>Health Desk</span><span class="news-meta-dot"></span><span>3 min read</span>
+            </div>
+          </div>
+        </div>
+        <div class="news-card reveal">
+          <div class="news-img"><img src="Mother&Child.png" width="100%" height="200px" alt=""></div>
+          <div class="news-body"><span class="news-tag">Mother &amp; Child</span>
+            <div class="news-title"><a href="https://nhm.gov.in/index1.php?lang=1&level=2&sublinkid=824&lid=220"
+                target="_blank" class="health-btn">Vaccination Schedule Every
+                Parent Must Know</a></div>
+            <div class="news-excerpt">Free
+              vaccines at your nearest
+              PHC. Don't miss these critical doses.</div>
+            <div class="news-meta"><span>ASHA Worker</span><span class="news-meta-dot"></span><span>4 min read</span>
+            </div>
+          </div>
+        </div>
+        <div class="news-card reveal">
+          <div class="news-img"><img src="Anaemia.png" width="100%" height="200px" alt=""></div>
+          <div class="news-body"><span class="news-tag">Awareness</span>
+            <div class="news-title"><a href="https://nhm.gov.in/index1.php?lang=1&level=3&sublinkid=1448&lid=797"
+                target="_blank" class="health-btn">Anaemia in Women: Signs You Must Not Ignore</a></div>
+            <div class="news-excerpt">Iron deficiency affects 1 in 2 rural women. Learn symptoms and treatment.</div>
+            <div class="news-meta"><span>Dr. Meena Pillai</span><span class="news-meta-dot"></span><span>3 min
+                read</span></div>
+          </div>
+        </div>
+        <div class="news-card reveal">
+          <div class="news-img"><img src="TB.png" width="100%" height="200px" alt=""></div>
+          <div class="news-body"><span class="news-tag">Disease Control</span>
+            <div class="news-title"><a href="https://www.who.int/news-room/fact-sheets/detail/tuberculosis"
+                target="_blank" class="health-btn">TB Is Curable: What Every Village Must Know</a></div>
+            <div class="news-excerpt">Free DOTS treatment available. Identifying TB symptoms early saves lives.</div>
+            <div class="news-meta"><span>RNTCP India</span><span class="news-meta-dot"></span><span>6 min read</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-brand-name">AarogyaPath</div>
+          <div class="footer-brand-desc">Making healthcare accessible to every corner of India — regardless of
+            geography, literacy, or income.</div>
+          <div class="helpline" style="margin-top:20px;">
+            <div class="helpline-num">📞 108</div>
+            <div class="helpline-label">Free Helpline · Available 24/7 · 12 Languages</div>
+          </div>
+        </div>
+        <div>
+          <div class="footer-heading">Services</div>
+          <ul class="footer-links">
+            <li><a href="solution.html">AI Symptom Checker</a></li>
+            <li><a href="#">Find Nearest Doctor</a></li>
+            <li><a href="#">Telemedicine</a></li>
+            <li><a href="#">Emergency SOS</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-heading">Health Topics</div>
+          <ul class="footer-links">
+            <li><a href="#">Maternal Health</a></li>
+            <li><a href="#">Child Nutrition</a></li>
+            <li><a href="#">Mental Health</a></li>
+            <li><a href="#">Vaccination</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-heading">Government Partners</div>
+          <ul class="footer-links">
+            <li><a href="https://beneficiary.nha.gov.in/">PMJAY (Ayushman Bharat)</a></li>
+            <li><a href="https://nhm.gov.in/">National Health Mission</a></li>
+            <li><a href="https://nhm.gov.in/index1.php?lang=1&level=1&sublinkid=150&lid=226">ASHA Workers Network</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom"><span>© 2025 AarogyaPath. All rights reserved.</span><span>Made with ❤️ for Rural
+          India</span></div>
+    </div>
+  </footer>
+  <div class="modal-overlay" id="loginModal" onclick="closeModalOnOverlay(event)">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-header">
+        <h2 class="modal-title">Get Started</h2>
+        <p class="modal-sub">Enter your details to access personalised health services.</p>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Your Full Name</label>
+        <input type="text" class="form-input" id="inputName" placeholder="e.g. Divyam Soni">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Age</label>
+          <input type="number" class="form-input" id="inputAge" placeholder="e.g. 19" min="1" max="120">
+        </div>
+        <div class="form-group"><label class="form-label">Gender</label><select class="form-select" id="inputGender">
+            <option value="">Select</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Others</option>
+          </select></div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" id="locationLabel">Your Location</label>
+        <input type="text" class="form-input" id="inputLocation" placeholder="Village / Town / City">
+        <button class="location-btn" id="locationBtn" onclick="detectLocation()" style="margin-top:8px;">📍 Detect My
+          Location Automatically</button>
+      </div>
+      <button class="form-submit" onclick="submitLogin()">Continue to Health Services →</button>
+    </div>
+  </div>
+  <script src="shared.js"></script>
+  <script src="index.js"></script>
+  <script src="translations.js"></script>
+</body>
+
+</html>
