@@ -115,15 +115,47 @@ function toggleMenu() {
   // Future: slide-in mobile nav
 }
 
+/* ─── VOICE INPUT (home search bar) ─── */
+let homeRec       = null;
+let homeListening = false;
+
+function toggleVoice() {
+  if (homeListening) {
+    homeRec && homeRec.stop();
+    homeListening = false;
+    return;
+  }
+  homeRec = createVoiceRecognition('mainSearch', 'voiceBtn');
+  if (homeRec) {
+    const previousOnResult = homeRec.onresult;
+    homeRec.onresult = (event) => {
+      if (typeof previousOnResult === 'function') previousOnResult(event);
+      const text = Array.from(event.results || [])
+        .map((result) => result[0] && result[0].transcript ? result[0].transcript : '')
+        .join(' ')
+        .trim();
+      if (text) homeVoiceTranscript = text;
+    };
+
+    homeRec.onend = () => {
+      homeListening = false;
+      const btn = document.getElementById('voiceBtn');
+      if (btn) { btn.classList.remove('listening'); btn.textContent = '🎙️'; }
+    };
+    homeRec.start();
+    homeListening = true;
+  }
+}
+
 /* ─── AUTO-OPEN LOGIN AFTER 4s ─── */
-// window.addEventListener('load', () => {
-//   const existingPatient = sessionStorage.getItem('patient');
-//   if (!existingPatient) {
-//     setTimeout(() => {
-//       const modal = document.getElementById('loginModal');
-//       if (modal && !modal.classList.contains('active')) {
-//         openModal();
-//       }
-//     }, 4000);
-//   }
-// });
+window.addEventListener('load', () => {
+  const existingPatient = sessionStorage.getItem('patient');
+  if (!existingPatient) {
+    setTimeout(() => {
+      const modal = document.getElementById('loginModal');
+      if (modal && !modal.classList.contains('active')) {
+        openModal();
+      }
+    }, 4000);
+  }
+});

@@ -18,12 +18,6 @@
   els.forEach(el => observer.observe(el));
 })();
 
-// /* ─── LANGUAGE PLACEHOLDERS ─── */
-// const PLACEHOLDERS = {
-//   en: { search: 'Describe your symptoms..."', chat: 'Describe your symptoms here...' },
-//   hi: { search: 'अपने लक्षण बताएं..."', chat: 'अपने लक्षण यहाँ लिखें...' },
-// };
-
 function changeLanguage(lang) {
   const phrases = PLACEHOLDERS[lang] || PLACEHOLDERS.en;
   const searchEl = document.getElementById('mainSearch') || document.getElementById('topSearch');
