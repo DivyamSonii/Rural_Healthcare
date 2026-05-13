@@ -263,7 +263,32 @@ function processQuery(query) {
   }, 1600);
 }
 
-function sendChat() { processQuery(document.getElementById('chatInput').value); }
+function sendChat() {
+  const chatInput = document.getElementById('chatInput');
+  const userText = chatInput.value.trim();
+
+  if (!userText) return;
+  processQuery(userText); 
+  
+  chatInput.value = ""; 
+}
+
+// Helper function to keep code clean
+function appendMessage(sender, text) {
+  const chatMessages = document.getElementById('chatMessages');
+  const msgHtml = `
+    <div class="chat-msg ${sender}">
+      <div class="chat-avatar ${sender}-avatar">${sender === 'bot' ? 'AI' : 'You'}</div>
+      <div>
+        <div class="chat-bubble ${sender}-bubble">${text}</div>
+        <div class="chat-time">AarogyaPath AI · Just now</div>
+      </div>
+    </div>
+  `;
+  chatMessages.insertAdjacentHTML('beforeend', msgHtml);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
 function handleChatInput(e) { if (e.key === 'Enter') sendChat(); }
 function quickAsk(text) { processQuery(text); }
 function doTopSearch() { processQuery(document.getElementById('topSearch').value); }
@@ -342,5 +367,3 @@ window.addEventListener('load', () => {
     });
   }
 });
-
-

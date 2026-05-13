@@ -25,19 +25,6 @@ function closeModalOnOverlay(e) {
 }
 
 /* ─── GEOLOCATION ─── */
-function handleLocationAction() {
-  const isLoggedIn = localStorage.getItem('isLoggedIn'); // Checks if user is logged in
-
-  if (isLoggedIn === 'true') {
-    // USER IS LOGGED IN: Run the location detection
-    detectLocation();
-  } else {
-    // USER IS NOT LOGGED IN: Redirect to login or show a message
-    alert("Please login first to access nearby hospital tracking.");
-    window.location.href = 'login.html'; // Change this to your actual login page URL
-  }
-}
-
 function detectLocation() {
   const btn = document.getElementById('locationBtn');
   btn.textContent = '📡 Detecting...';
@@ -51,33 +38,24 @@ function detectLocation() {
   navigator.geolocation.getCurrentPosition(
     (pos) => {
       const { latitude, longitude } = pos.coords;
-
-      // 1. Define the Google Maps URL
-      const mapUrl = `https://www.google.com/maps/search/hospital/@$${latitude},${longitude},15z`;
-
-      // 2. Fetch the name of the village/town
+      // Reverse geocode via OpenStreetMap Nominatim
       fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`)
         .then(r => r.json())
         .then(data => {
           const loc =
             data.address.village ||
-            data.address.town ||
-            data.address.city ||
-            data.address.state ||
+            data.address.town    ||
+            data.address.city    ||
+            data.address.state   ||
             'Location detected';
-
           document.getElementById('inputLocation').value = loc;
-          btn.className = 'location-btn detected';
-          btn.textContent = `✅ ${loc} (View Hospitals)`;
-
-          // 3. Make the button open Google Maps when clicked again
-          btn.onclick = () => window.open(mapUrl, '_blank');
+          btn.className   = 'location-btn detected';
+          btn.textContent = `✅ ${loc}`;
         })
         .catch(() => {
           document.getElementById('inputLocation').value = `${latitude.toFixed(4)}, ${longitude.toFixed(4)}`;
-          btn.className = 'location-btn detected';
+          btn.className   = 'location-btn detected';
           btn.textContent = '✅ Location detected';
-          btn.onclick = () => window.open(mapUrl, '_blank');
         });
     },
     () => {
@@ -86,7 +64,6 @@ function detectLocation() {
     }
   );
 }
-
 
 /* ─── LOGIN FORM SUBMIT ─── */
 function submitLogin() {
@@ -133,40 +110,16 @@ function goToSymptom(symptom) {
   window.location.href = `solution.html?q=${encodeURIComponent(symptom)}`;
 }
 
-/* ─── VOICE INPUT (home search bar) ─── */
-let homeRec = null;
-let homeListening = false;
-
-function toggleVoice() {
-  if (homeListening) {
-    homeRec && homeRec.stop();
-    homeListening = false;
-    return;
-  }
-  homeRec = createVoiceRecognition('mainSearch', 'voiceBtn');
-  if (homeRec) {
-    homeRec.onend = () => {
-      homeListening = false;
-      const btn = document.getElementById('voiceBtn');
-      if (btn) { btn.classList.remove('listening'); btn.textContent = '🎙️'; }
-    };
-    homeRec.start();
-    homeListening = true;
-  }
-}
-
 /* ─── MOBILE MENU PLACEHOLDER ─── */
 function toggleMenu() {
   // Future: slide-in mobile nav
 }
 
-/* ─── AUTO-OPEN LOGIN AFTER 5s ─── */
+/* ─── AUTO-OPEN LOGIN AFTER 4s ─── */
 // window.addEventListener('load', () => {
-//   // If user is not already stored in session, show login after 4 seconds
 //   const existingPatient = sessionStorage.getItem('patient');
 //   if (!existingPatient) {
 //     setTimeout(() => {
-//       // Only open if modal element exists
 //       const modal = document.getElementById('loginModal');
 //       if (modal && !modal.classList.contains('active')) {
 //         openModal();
